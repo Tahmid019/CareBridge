@@ -34,8 +34,8 @@ class _AuthState extends State<Auth> {
           child: Container(
               width: width,
               color: Theme.of(context).scaffoldBackgroundColor,
-              height: height*0.3,
-              child: Image(image: AssetImage('assets/logo.png'),),
+              height: height * 0.3,
+              child: Image(image: AssetImage('assets/loogo.png')), 
             ),
         ),
         Expanded(
