@@ -36,15 +36,17 @@ class _HomeScreenState extends State<HomeScreen> {
                 autoPlayInterval: Duration(seconds: 5),
                 height: height * 0.24,
               ),
-              itemCount: 3,
-              itemBuilder:
-                  (BuildContext context, int itemIndex, int pageViewIndex) {
+              itemCount: 4,
+              itemBuilder: (BuildContext context, int itemIndex, int pageViewIndex) {
                 return Card(
-                    child: Container(
-                        height: height * 0.24,
-                        width: width * 0.9,
-                        child: image[itemIndex]));
-              }),
+                  child: Container(
+                    height: height * 0.24,
+                    width: width * 0.9,
+                    child: image[itemIndex], 
+                  ),
+                );
+              },
+            ),
           Expanded(
             child: Container(
               margin: EdgeInsets.all(20),
