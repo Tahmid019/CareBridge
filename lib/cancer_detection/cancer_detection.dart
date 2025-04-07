@@ -15,23 +15,30 @@ class _CancerDetectionScreenState extends State<CancerDetectionScreen> {
   File? selectedImage;
   String? message = "";
 
-  uploadImage() async{
-    final request = http.MultipartRequest("POST", Uri.parse("https://5a3e-2409-40e6-e-c969-d70-7e12-c1a3-d781.ngrok-free.app/"));
-    final header = {"Content-type": "multipart/form-data"};
-    request.files.add(http.MultipartFile('imagefile', selectedImage!.readAsBytes().asStream(), selectedImage!.lengthSync(), filename: selectedImage!.path.split("/").last));
-    request.headers.addAll(header);
+  Future getImage() async {
+    final pickedImage = await ImagePicker().pickImage(source: ImageSource.gallery);
+    selectedImage = File(pickedImage.path); 
+    setState(() {});
+  }
+  
+  uploadImage() async {
+    final request = http.MultipartRequest(
+      "POST",
+      Uri.parse("https://5a3e-2409-40e6-e-c969-d70-7e12-c1a3-d781.ngrok-free.app/"),
+    );
+    request.files.add(http.MultipartFile(
+      'imagefile',
+      selectedImage!.readAsBytes().asStream(),
+      selectedImage!.lengthSync(),
+      filename: selectedImage!.path.split("/").last,
+    ));
     final response = await request.send();
     http.Response res = await http.Response.fromStream(response);
     final resJson = jsonDecode(res.body);
-    message = resJson['prediction'];
+    message = resJson['prediction']; 
     setState(() {});
   }
 
-  Future getImage() async{
-    final pickedImage = await ImagePicker().pickImage(source: ImageSource.gallery);
-    selectedImage = File(pickedImage!.path);
-    setState(() {});
-  }
 
   @override
   Widget build(BuildContext context) {
